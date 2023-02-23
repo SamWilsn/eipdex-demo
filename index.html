@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+  </head>
+  <body>
+    <p>
+      <input id="search" disabled>
+    </p>
+    <ul id="results">
+    </ul>
+
+    <script type="module">
+      import init, { query } from './eipdex.js';
+
+      async function run() {
+        await init("./eipdex_bg.wasm");
+
+        const search = document.getElementById("search");
+        const results = document.getElementById("results");
+
+        const handler = () => {
+          while (results.firstChild) {
+            results.removeChild(results.firstChild);
+          }
+
+          for (let x of query(search.value)) {
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.innerText = x;
+            a.href = `https://eips.ethereum.org/EIPS/eip-${x}`;
+            a.target = "_blank";
+            li.appendChild(a);
+            results.appendChild(li);
+          }
+        };
+
+        search.addEventListener("input", handler);
+
+        search.disabled = false;
+
+        if (search.value) {
+          handler();
+        }
+      }
+
+      run();
+    </script>
+  </body>
+</html>

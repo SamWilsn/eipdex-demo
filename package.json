@@ -1,0 +1,12 @@
+{
+  "name": "eipdex",
+  "version": "0.1.0",
+  "files": [
+    "eipdex_bg.wasm",
+    "eipdex.js",
+    "eipdex.d.ts"
+  ],
+  "module": "eipdex.js",
+  "types": "eipdex.d.ts",
+  "sideEffects": false
+}
